@@ -1,0 +1,36 @@
+env: test
+
+mysql:
+  host: 127.0.0.1:3306
+  user: root
+  password: test123
+  db_name: gin_test
+
+mongo:
+  hosts: 127.0.0.1:27017
+
+redis:
+  addrs: 127.0.0.1:6379
+
+
+need_requests: true
+
+addr: :8081
+runmode: debug
+
+server_url: http://127.0.0.1:8081
+
+log:
+  runtime_root_path: runtime/
+  log_save_path: logs/
+  log_save_name: log
+  time_format: 20060102
+  log_file_ext: log
+  log_level: debug
+
+
+prometheus: http://127.0.0.1:9090
+
+zipkin: http://localhost:9411/zipkin
+
+consul: http://localhost:8500
