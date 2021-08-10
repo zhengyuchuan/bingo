@@ -49,8 +49,8 @@ type MsgInfo struct {
 	Rtime             string        `json:"rtime"`
 	CommentCount      int           `json:"comment_count"`
 	DiggCount         int           `json:"digg_count"`
-	HotIndex          int           `json:"hot_index"`
-	RankIndex         int           `json:"rank_index"`
+	HotIndex          float64       `json:"hot_index"`
+	RankIndex         float64       `json:"rank_index"`
 	CommentScore      int           `json:"comment_score"`
 	IsAdvertRecommend bool          `json:"is_advert_recommend"`
 	AuditStatus       int           `json:"audit_status"`
