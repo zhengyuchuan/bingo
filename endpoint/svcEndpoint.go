@@ -10,7 +10,6 @@ import (
 	"net/http"
 )
 
-
 func EncodeSvc(ctx context.Context, w http.ResponseWriter, response interface{}) error {
 	//if f, ok := response.(httpendpoint.Failer); ok && f.Failed() != nil {
 	//	errorEncoder(ctx, f.Failed(), w)
@@ -20,12 +19,12 @@ func EncodeSvc(ctx context.Context, w http.ResponseWriter, response interface{})
 	return json.NewEncoder(w).Encode(response)
 }
 
-func DecodeSvc(ctx context.Context, req *http.Request) (interface{}, error){
+func DecodeSvc(ctx context.Context, req *http.Request) (interface{}, error) {
 	var request service.SvcRequest
 	varMap := mux.Vars(req)
 	request = service.SvcRequest{
 		Name: varMap["name"],
-		Age: varMap["age"],
+		Age:  varMap["age"],
 	}
 	//err := json.NewDecoder(req.Body).Decode(&request)
 	//if err != nil {
@@ -35,7 +34,6 @@ func DecodeSvc(ctx context.Context, req *http.Request) (interface{}, error){
 	//}
 	return request, nil
 }
-// func(ctx context.Context, request interface{}) (response interface{}, err error)
 
 func MakeSvcEndpoint() endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
@@ -43,7 +41,8 @@ func MakeSvcEndpoint() endpoint.Endpoint {
 		if !ok {
 			return nil, errors.New("解析失败！")
 		}
-		svcresponse := service.SvcService(svcrequest)
+		juejinEndpoint := MakeJuejinEndpoint()
+		svcresponse := service.SvcService(ctx, svcrequest, juejinEndpoint)
 		return svcresponse, nil
 	}
 }

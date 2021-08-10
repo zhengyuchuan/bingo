@@ -42,6 +42,7 @@ func main() {
 	// TODO: 初始化HandleFunc及middlewire
 	r := mux.NewRouter()
 	svcService := transport.InitSvc()
+
 	r.Handle("/hello", svcService).Methods("GET")
 	srv := http.Server{
 		Addr:    viper.GetString("addr"),
