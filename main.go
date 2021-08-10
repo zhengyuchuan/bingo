@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bingo/component"
 	"bingo/transport"
 	"context"
 	"fmt"
@@ -34,6 +35,7 @@ func main() {
 	fmt.Println(serverUrl)
 
 	// TODO：初始化各种组件
+	component.InitLog()
 
 	// TODO：初始化路由
 
@@ -42,7 +44,7 @@ func main() {
 	svcService := transport.InitSvc()
 	r.Handle("/hello", svcService).Methods("GET")
 	srv := http.Server{
-		Addr:    ":8081",
+		Addr:    viper.GetString("addr"),
 		Handler: r,
 	}
 	exit := make(chan os.Signal)
