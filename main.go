@@ -44,6 +44,7 @@ func main() {
 	svcService := transport.InitSvc()
 
 	r.Handle("/hello", svcService).Methods("GET")
+
 	srv := http.Server{
 		Addr:    viper.GetString("addr"),
 		Handler: r,
