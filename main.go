@@ -1,8 +1,6 @@
 package main
 
 import (
-	"bingo/component"
-	"bingo/db"
 	"bingo/transport"
 	"context"
 	"fmt"
@@ -36,9 +34,8 @@ func main() {
 	fmt.Println(serverUrl)
 
 	// TODO：初始化各种组件
-	component.InitLog()
-	db.InitMysql()
-	db.InitRedis()
+	//db.InitMysql()
+	//db.InitRedis()
 
 	// TODO：初始化路由
 

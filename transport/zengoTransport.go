@@ -1,19 +1,19 @@
 package transport
 
 import (
-	"bingo/endpoint"
+	"bingo/endpoint/server"
 	"bingo/middleware"
 	httptransport "github.com/go-kit/kit/transport/http"
 	"net/http"
 )
 
 func InitSvc() http.Handler {
-	svcendpoint := endpoint.MakeSvcEndpoint()
+	svcendpoint := server.MakeSvcEndpoint()
 	svcendpoint = middleware.MakeLogMiddleWare(svcendpoint)
-	server := httptransport.NewServer(
+	httpServer := httptransport.NewServer(
 		svcendpoint,
-		endpoint.DecodeSvc,
-		endpoint.EncodeSvc,
+		server.DecodeSvc,
+		server.EncodeSvc,
 	)
-	return server
+	return httpServer
 }

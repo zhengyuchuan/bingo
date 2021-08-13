@@ -14,7 +14,7 @@ var (
 	logger *zap.Logger
 )
 
-func InitLog() {
+func init() {
 
 	logFilePath := getLogFilePath() + getLogFileName()
 	hook := &lumberjack.Logger{
