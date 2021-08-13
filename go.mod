@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/go-kit/kit v0.11.0
+	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/gorilla/mux v1.8.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/ogier/pflag v0.0.1

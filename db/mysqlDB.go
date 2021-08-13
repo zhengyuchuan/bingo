@@ -1,4 +1,4 @@
-package dao
+package db
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 
 var db *gorm.DB
 
-func Init() {
+func InitMysql() {
 	dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
 	var err error
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
