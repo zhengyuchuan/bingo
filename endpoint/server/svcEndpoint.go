@@ -1,7 +1,6 @@
 package server
 
 import (
-	"bingo/endpoint/client"
 	"bingo/service"
 	"context"
 	"encoding/json"
@@ -42,8 +41,7 @@ func MakeSvcEndpoint() endpoint.Endpoint {
 		if !ok {
 			return nil, errors.New("解析失败！")
 		}
-		juejinEndpoint := client.MakeJuejinEndpoint()
-		svcresponse := service.SvcService(ctx, svcrequest, juejinEndpoint)
+		svcresponse := service.SvcService(ctx, svcrequest)
 		return svcresponse, nil
 	}
 }

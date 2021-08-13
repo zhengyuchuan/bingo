@@ -1,0 +1,5 @@
+package endpoint
+
+func Init() {
+
+}
