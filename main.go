@@ -2,6 +2,7 @@ package main
 
 import (
 	"bingo/component"
+	"bingo/db"
 	"bingo/transport"
 	"context"
 	"fmt"
@@ -36,6 +37,8 @@ func main() {
 
 	// TODO：初始化各种组件
 	component.InitLog()
+	db.InitMysql()
+	db.InitRedis()
 
 	// TODO：初始化路由
 

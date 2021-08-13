@@ -18,7 +18,7 @@ func InitRedis() {
 	}
 }
 
-func getRedis() (redis.Conn, error) {
+func GetRedis() (redis.Conn, error) {
 	conn := redisPool.Get()
 	if _, ok := conn.(redis.Conn); !ok {
 		return nil, errors.New("获取连接失败")

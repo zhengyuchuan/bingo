@@ -32,6 +32,6 @@ func InitMysql() {
 
 }
 
-func getMysqlDB() *gorm.DB {
-	return db
+func GetMysqlDB() (*gorm.DB, error) {
+	return db, nil
 }
