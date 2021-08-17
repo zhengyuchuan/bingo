@@ -7,6 +7,7 @@ require (
 	github.com/chasex/redis-go-cluster v1.0.0 // indirect
 	github.com/drhodes/golorem v0.0.0-20160418191928-ecccc744c2d9 // indirect
 	github.com/garyburd/redigo v1.6.2
+	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8 // indirect
 	github.com/go-kit/kit v0.11.0
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/gorilla/mux v1.8.0

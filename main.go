@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bingo/db"
 	"bingo/transport"
 	"context"
 	"fmt"
@@ -36,15 +35,16 @@ func main() {
 
 	// TODO：初始化各种组件
 	//db.InitMysql()
-	db.InitRedis(db.REDIS)
-
-	// TODO：初始化路由
+	//db.InitRedis(db.REDIS)
+	//db.InitMongo()
 
 	// TODO: 初始化HandleFunc及middlewire
 	r := mux.NewRouter()
-	svcService := transport.InitSvc()
-
-	r.Handle("/hello", svcService).Methods("GET")
+	var svcService transport.ServiceSet
+	{
+		svcService = transport.InitSvc()
+		r.Handle("/hello", svcService.SvcService).Methods("GET")
+	}
 
 	srv := http.Server{
 		Addr:    viper.GetString("addr"),

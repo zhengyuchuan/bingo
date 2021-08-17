@@ -7,13 +7,23 @@ import (
 	"net/http"
 )
 
-func InitSvc() http.Handler {
-	svcendpoint := server.MakeSvcEndpoint()
-	svcendpoint = middleware.MakeLogMiddleWare(svcendpoint)
-	httpServer := httptransport.NewServer(
-		svcendpoint,
-		server.DecodeSvc,
-		server.EncodeSvc,
-	)
-	return httpServer
+type ServiceSet struct {
+	SvcService http.Handler
+	StuService http.Handler
+}
+
+func InitSvc() ServiceSet {
+	var ServiceIpl ServiceSet
+	{
+		svcendpoint := server.MakeSvcEndpoint()
+		svcendpoint = middleware.MakeLogMiddleWare(svcendpoint)
+		svcServer := httptransport.NewServer(
+			svcendpoint,
+			server.DecodeSvc,
+			server.EncodeSvc,
+		)
+		ServiceIpl.SvcService = svcServer
+	}
+
+	return ServiceIpl
 }
