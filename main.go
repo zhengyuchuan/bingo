@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bingo/db"
 	"bingo/transport"
 	"context"
 	"fmt"
@@ -35,7 +36,7 @@ func main() {
 
 	// TODO：初始化各种组件
 	//db.InitMysql()
-	//db.InitRedis()
+	db.InitRedis(db.REDIS)
 
 	// TODO：初始化路由
 

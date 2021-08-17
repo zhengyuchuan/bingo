@@ -3,8 +3,7 @@ package db
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
-	"github.com/garyburd/redigo/redis"
+	"github.com/gomodule/redigo/redis"
 	"github.com/op/go-logging"
 	"github.com/samuel/go-zookeeper/zk"
 	"sync"
@@ -24,14 +23,14 @@ type Pool struct {
 	ZkTimeout time.Duration
 	ZkDir     string
 	Dial      func(network, address string) (redis.Conn, error)
+	mu        *sync.Mutex
 }
 
 var (
-	mu  = &sync.Mutex{}
 	Log = logging.MustGetLogger("Codis")
 )
 
-func useCodis() {
+func initCodis() *Pool {
 	p := &Pool{
 		ZkServers: []string{"locallhost:8021"},
 		ZkTimeout: time.Second * 60,
@@ -43,8 +42,9 @@ func useCodis() {
 			}
 			return conn, err
 		},
+		mu: &sync.Mutex{},
 	}
-	fmt.Println(p)
+	return p
 }
 
 // initFromZk 从zk获取proxy连接
@@ -122,7 +122,7 @@ func (this *Pool) initZk() {
 }
 
 func (this *Pool) Get() redis.Conn {
-	mu.Lock()
+	this.mu.Lock()
 	if len(this.pools) == 0 {
 		this.initFromZk()
 	}
@@ -131,20 +131,21 @@ func (this *Pool) Get() redis.Conn {
 		this.nextIdx = 0
 	}
 	if len(this.pools) == 0 {
-		mu.Unlock()
+		this.mu.Unlock()
 		err := errors.New("Proxy list empty")
 		Log.Error(err)
 		return errorConnection{err: err}
 	} else {
 		c := this.pools[this.nextIdx]
-		mu.Unlock()
+		this.mu.Unlock()
 		return c
 	}
 }
 
-func (this *Pool) Close() {
+func (this *Pool) Close() error {
 	this.zk.Close()
 	this.pools = []redis.Conn{}
+	return nil
 }
 
 type errorConnection struct{ err error }

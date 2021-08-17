@@ -8,8 +8,6 @@ import (
 	"time"
 )
 
-var redisPool interface{}
-
 func initRedis() *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     16,  // 最初的连接数量
