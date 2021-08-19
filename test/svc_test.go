@@ -12,7 +12,7 @@ import (
 
 func TestSvc(t *testing.T) {
 
-	handler := transport.InitSvc()
+	handler := transport.InitSvc().SvcService
 	server := httptest.NewServer(handler)
 	defer server.Close()
 
